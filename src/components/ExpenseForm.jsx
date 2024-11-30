@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import { DateInput, AmountInput, TitleInput, CategoryInput, PaymentModeInput, RecurringInput, BeneficiaryInput, TagsInput } from './Inputs';
-import { getExpenses } from '../service/localStorage';
+import Context from '../Context/context';
 
 const emptyForm = () => ({
   date: new Date().toISOString().split('T')[0],
@@ -14,8 +14,8 @@ const emptyForm = () => ({
   tags: '',
 });
 
-function formValuesFromLocalStorage(ind) {
-  const expenses = getExpenses();
+function formValuesFromLocalStorage(ind , expenses) {
+  // const expenses = getExpenses();
   const expense = expenses[ind];
   const formValues = {
     ...expense,
@@ -25,8 +25,9 @@ function formValuesFromLocalStorage(ind) {
   return formValues;
 }
 
-const ExpenseForm = ({ onSaveExpense, editIndex }) => {
-  const prefilledForm = editIndex > -1 ? formValuesFromLocalStorage(editIndex) : emptyForm();
+const ExpenseForm = ({ onSaveExpense }) => {
+  const { editIndex, expenses } = useContext(Context)
+  const prefilledForm = editIndex > -1 ? formValuesFromLocalStorage(editIndex , expenses) : emptyForm();
   const [formValues, setFormValues] = useState(prefilledForm);
 
   const handleSubmit = (e) => {
