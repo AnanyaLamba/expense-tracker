@@ -10,14 +10,17 @@ import Context from "../Context/context";
 // }
 
 const ExpenseListPage = () => {
-  const { setEditIndex, expenses, setExpenses } = useContext(Context);
+  const { setEditIndex, expenses, dispatch } = useContext(Context);
   const navigate = useNavigate();
   // const forceUpdate = useForceUpdate();
   // const expenses = getExpenses();
 
   const handleDeleteExpense = (ind) => {
-    const updatedExpenseArray = expenses.filter((_, index) => index !== ind);
-    setExpenses(updatedExpenseArray);
+    dispatch({
+      type:"DELETE",
+      payload:{ind},
+    })
+    
     // forceUpdate();
   };
 
