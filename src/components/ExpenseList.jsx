@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
-import Context from '../Context/context';
+import React from 'react';
 
-const ExpenseList = ({onDeleteExpense, onEditExpense}) => {
-  const { expenses  } = useContext(Context);
+const ExpenseList = ({expenses, onDeleteExpense, onEditExpense}) => {
   return (
     <ul>
         {expenses.map((expense, index) => (

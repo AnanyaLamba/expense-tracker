@@ -21,7 +21,9 @@ export const ContextProvider = ({children}) =>{
         setExpensesInBackend(expenses).then(() => console.log("saved expenses"))
     },[expenses])
     
+    
 
+    
     return(
         <Context.Provider value={{editIndex, setEditIndex, expenses, dispatch}}>
             {children}

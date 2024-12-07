@@ -1,6 +1,7 @@
 import React, { useState , useContext } from 'react';
 import { DateInput, AmountInput, TitleInput, CategoryInput, PaymentModeInput, RecurringInput, BeneficiaryInput, TagsInput } from './Inputs';
 import Context from '../Context/context';
+import "./ExpenseForm.css";
 
 const emptyForm = () => ({
   date: new Date().toISOString().split('T')[0],
