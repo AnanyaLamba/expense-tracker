@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import ExpenseList from "../components/ExpenseList";
 import { useNavigate } from "react-router-dom";
 import Context from "../Context/context";
 import Cards from "../components/Cards";
+import filterReducer from "../Reducers/filterReducer";
 // import Cards from "../components/Cards";
 // import { getExpenses, setExpenses } from '../service/localStorage';
 
@@ -12,25 +13,27 @@ import Cards from "../components/Cards";
 // }
 
 const ExpenseListPage = () => {
-  const { setEditIndex, expenses, dispatch } = useContext(Context);
+  const { setEditId, expenses, dispatch } = useContext(Context);
   const navigate = useNavigate();
   // const forceUpdate = useForceUpdate();
   // const expenses = getExpenses();
   const [istable, setIstable] = useState(true);
   //create  a state for setting all the categories
-  const [selectedCategory , setSelectedCategory] = useState("All");
+  // filterDispatch will be connected to filterReducer
+  const [selectedCategory , filterDispatch] = useReducer(filterReducer , "All");
+  
 
-  const handleDeleteExpense = (ind) => {
+  const handleDeleteExpense = (id) => {
     dispatch({
       type: "DELETE",
-      payload: { ind },
+      payload: { id },
     });
 
     // forceUpdate();
   };
 
-  const handleEditExpense = (ind) => {
-    setEditIndex(ind);
+  const handleEditExpense = (id) => {
+    setEditId(id);
     navigate("/");
   };
   //setting the value of selectedcategory
@@ -44,7 +47,10 @@ const ExpenseListPage = () => {
       <label htmlFor="categories">
         Filtered By Categoires: 
       </label>
-      <select name="category" id="category" value={selectedCategory} onChange={(e)=>setSelectedCategory(e.target.value)}>
+      <select name="category" id="category" value={selectedCategory} onChange={(e)=>filterDispatch({
+        type: "SET_CATEGORY",
+        payload:e.target.value,
+      })}>
         <option value="All">All</option>
         <option value="Entertainment">Entertainment</option>
         <option value="Food">Food</option>

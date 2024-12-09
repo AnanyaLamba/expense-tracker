@@ -8,8 +8,8 @@ const Cards = ({ expenses , onDeleteExpense, onEditExpense }) => {
 
   return (
     <div className="card-container">
-      {expenses.map((expense, index) => (
-        <div key={index} className="expense-card">
+      {expenses.map((expense) => (
+        <div key={expense.id} className="expense-card">
           <div className="expense-info">
             <p><strong>Date:</strong> {expense.date}</p>
             <p><strong>Amount:</strong> ${expense.amount}</p>
@@ -21,8 +21,8 @@ const Cards = ({ expenses , onDeleteExpense, onEditExpense }) => {
             <p><strong>Tags:</strong> {expense.tags?.join(', ')}</p>
           </div>
           <div className="card-buttons">
-            <button className="delete-btn" onClick={() => onDeleteExpense(index)}>Delete</button>
-            <button className="edit-btn" onClick={() => onEditExpense(index)}>Edit</button>
+            <button className="delete-btn" onClick={() => onDeleteExpense(expense.id)}>Delete</button>
+            <button className="edit-btn" onClick={() => onEditExpense(expense.id)}>Edit</button>
           </div>
         </div>
       ))}
